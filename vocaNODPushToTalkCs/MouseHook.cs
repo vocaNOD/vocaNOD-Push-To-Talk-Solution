@@ -40,7 +40,17 @@ namespace vocaNODPushToTalkCs
         {
             _hookID = SetHook(_proc);
             activated = false;
-            mousePttActivated = false;
+            if (Properties.Settings.Default.MouseKeyCodeSaved == 0)
+            {
+                mousePttActivated = false;
+            }
+            else
+            {
+                Console.WriteLine("not = 0 ");
+                mousePttActivated = true;
+                mouseKeyCodeAssigned = Properties.Settings.Default.MouseKeyCodeSaved;
+
+            }
             Form1.Activation += new onActive(listenActivation);
             Form1.Deactivation += new onDeactive(listenDeactivation);
             InterceptKeys.OnKeyAssignedChangedEvent += new onKeyAssignedChanged(listenOnKeyAssignedChanged);
@@ -101,7 +111,7 @@ namespace vocaNODPushToTalkCs
                         {
                             OnMouseKeyAssignedChangedEvent("Right click");
                             mouseKeyCodeAssigned = (int)MouseMessages.WM_RBUTTONUP;
-
+                            Properties.Settings.Default.MouseKeyCodeSaved = (int)MouseMessages.WM_RBUTTONUP;
                         }
                        
                     }
@@ -131,7 +141,7 @@ namespace vocaNODPushToTalkCs
                         {
                             OnMouseKeyAssignedChangedEvent("Left click");
                             mouseKeyCodeAssigned = (int)MouseMessages.WM_LBUTTONUP;
-
+                            Properties.Settings.Default.MouseKeyCodeSaved = (int)MouseMessages.WM_LBUTTONUP;
                         }
                     }
                     break;
@@ -149,7 +159,7 @@ namespace vocaNODPushToTalkCs
                     break;
                 case MouseMessages.WM_MBUTTONUP: // When the key has been released
                     {
-                        if (mouseKeyCodeAssigned == (int)MouseMessages.WM_LBUTTONUP && mousePttActivated && !activated)
+                        if (mouseKeyCodeAssigned == (int)MouseMessages.WM_MBUTTONUP && mousePttActivated && !activated)
                         {
                             OnMouseReleasedEvent();
                             pressedBoolean = false;
@@ -157,8 +167,9 @@ namespace vocaNODPushToTalkCs
                         else if (activated)
                         {
                             OnMouseKeyAssignedChangedEvent("Middle click");
-                            mouseKeyCodeAssigned = (int)MouseMessages.WM_LBUTTONUP;
-
+                            mouseKeyCodeAssigned = (int)MouseMessages.WM_MBUTTONUP;
+                            Properties.Settings.Default.MouseKeyCodeSaved = (int)MouseMessages.WM_MBUTTONUP;
+                            
                         }
                     }
                     break;
@@ -187,6 +198,7 @@ namespace vocaNODPushToTalkCs
                         {
                             OnMouseKeyAssignedChangedEvent("Mouse " + (int)hookStruct.mouseData/65536);
                             mouseKeyCodeAssigned = (int)hookStruct.mouseData;
+                            Properties.Settings.Default.MouseKeyCodeSaved = (int)hookStruct.mouseData;
 
                         }
                        

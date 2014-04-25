@@ -41,6 +41,16 @@ namespace vocaNODPushToTalkCs
         {
             pressedBoolean = false;
             activated = false;
+            if (Properties.Settings.Default.KeyboardKeyCodeSaved == 0)
+            {
+                keyboardPttActivated = false;
+            }
+            else
+            {
+                keyboardPttActivated = true;
+                keyCodeAssigned = Properties.Settings.Default.KeyboardKeyCodeSaved;
+
+            }
             Form1.Activation += new onActive(listenActivation);
             Form1.Deactivation += new onDeactive(listenDeactivation);
             MouseHook.OnMouseKeyAssignedChangedEvent += new onMouseKeyAssignedChanged(listenMouseKeyAssignedChanged);
@@ -88,6 +98,7 @@ namespace vocaNODPushToTalkCs
                 {
                     keyCodeAssigned = vkCode;
                     OnKeyAssignedChangedEvent(keyCodeAssigned);
+                    Properties.Settings.Default.KeyboardKeyCodeSaved = keyCodeAssigned;
                 }
             }
 

@@ -39,7 +39,7 @@ namespace vocaNODPushToTalkCs
         public Form1()
         {
             // This one is needed since we use Windows form
-            Initializecomponent();
+            InitializeComponent();
 
             // Here we subscribe to events
             InterceptKeys.OnKeyAssignedChangedEvent += new onKeyAssignedChanged(listenEventKeyAssignedChanged);
@@ -95,6 +95,14 @@ namespace vocaNODPushToTalkCs
             this.Hide();
             e.Cancel = true;
             base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            
+            Console.WriteLine("onClosed");
+            MessageBox.Show("coucou");
+            base.OnClosed(e);
         }
 
         private void listenOnBrowserConnected()
@@ -158,6 +166,7 @@ namespace vocaNODPushToTalkCs
             // timer and tricks
             if (waitForKeyAssigning)
             {
+
                 
                 this.toolStripStatusLabel1.Text = "You wish to assign key : " + mouseKey;
                 this.keyAssignedLabel.Text = "Key assigned : " + mouseKey;
@@ -224,6 +233,18 @@ namespace vocaNODPushToTalkCs
             }
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+
+            Properties.Settings.Default.Upgrade();
+            Console.WriteLine(Properties.Settings.Default.CharSaved.Equals('\0'));
+            
+            if (!Properties.Settings.Default.CharSaved.Equals('\0'))
+            {
+                this.keyAssignedLabel.Text = "Key assigned : " + Properties.Settings.Default.CharSaved;
+            }
+            base.OnLoad(e);
+        }
 
         private void button1_OnKeyPress(object sender,KeyPressEventArgs e)
         {
@@ -231,42 +252,12 @@ namespace vocaNODPushToTalkCs
             if (waitForKeyAssigning)
             {
                 keyAssigned = e.KeyChar;
+                Properties.Settings.Default.CharSaved = keyAssigned.ToString();
                 this.toolStripStatusLabel1.Text = "You wish to assign key : " + keyAssigned;
                 this.keyAssignedLabel.Text = "Key assigned : " + keyAssigned;
                 Deactivation();
             }
         }
-
-   /*     private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // Form1
-            // 
-            this.ClientSize = new System.Drawing.Size(300, 261);
-            this.Name = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.ResumeLayout(false);
-
-        }*/
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // Form1
-            // 
-            this.ClientSize = new System.Drawing.Size(302, 261);
-            this.Name = "Form1";
-            this.ResumeLayout(false);
-
-        }
-
 
     }
 }

@@ -22,5 +22,53 @@ namespace vocaNODPushToTalkCs.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Control")]
+        public global::System.Drawing.Color Backcontrol {
+            get {
+                return ((global::System.Drawing.Color)(this["Backcontrol"]));
+            }
+            set {
+                this["Backcontrol"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CharSaved {
+            get {
+                return ((string)(this["CharSaved"]));
+            }
+            set {
+                this["CharSaved"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int MouseKeyCodeSaved {
+            get {
+                return ((int)(this["MouseKeyCodeSaved"]));
+            }
+            set {
+                this["MouseKeyCodeSaved"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int KeyboardKeyCodeSaved {
+            get {
+                return ((int)(this["KeyboardKeyCodeSaved"]));
+            }
+            set {
+                this["KeyboardKeyCodeSaved"] = value;
+            }
+        }
     }
 }

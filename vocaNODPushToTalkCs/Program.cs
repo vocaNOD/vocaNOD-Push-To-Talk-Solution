@@ -13,6 +13,7 @@ namespace vocaNODPushToTalkCs
         [STAThread]
         static void Main()
         {
+            Properties.Settings.Default.Upgrade();
             Application.EnableVisualStyles();
             //Running the webSocket server and the hooks on keyboard and mouse
             InterceptKeys.RunKeyHook();
@@ -23,6 +24,7 @@ namespace vocaNODPushToTalkCs
             wsServer.StopServer();
             InterceptKeys.StopKeyHook();
             MouseHook.StopMouseHook();
+            Properties.Settings.Default.Save();
             Application.Exit();
             System.Environment.Exit(1);
             
